@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setItems } from "./redux/itemsSlice";
+import SearchBar from "./components/SearchBar";
+import ItemList from "./components/ItemList";
+import "./App.css";
 
-function App() {
+
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const dummyItems = Array.from({ length: 50 }, (_, i) => ({
+      id: i + 1,
+      name: `Item ${i + 1}`,
+    }));
+    dispatch(setItems(dummyItems));
+  }, [dispatch]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+      <SearchBar />
+      <ItemList />
+      </div>
     </div>
   );
-}
+};
+
 
 export default App;
